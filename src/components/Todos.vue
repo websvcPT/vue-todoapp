@@ -4,7 +4,7 @@
       <TodoItem
         v-bind:todo="todo"
         v-on:del-todo="$emit('del-todo', todo.id)"
-        v-on:update-todo="$emit('update-todo', todo.id, updtTodo)"
+        v-on:swapstatus-todo="$emit('swapstatus-todo', todo)"
       />
     </div>
   </div>

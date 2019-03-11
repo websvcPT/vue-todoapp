@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <Header/>
-    <AddTodo v-on:add-todo="addTodo"/>
-    <Todos v-bind:todos="todos" v-on:del-todo="delTodo" v-on:update-todo="updtTodo"/>
+    <AddTodo v-on:add-todo="addTodoApp"/>
+    <Todos v-bind:todos="todos" v-on:del-todo="delTodo" v-on:swapstatus-todo="swapStatusTodoApp"/>
   </div>
 </template>
 
 <script>
 import Header from './components/layout/Header.vue';
-import Todos from '@/components/Todos.vue';
+import Todos from './components/Todos.vue';
 import AddTodo from '@/components/AddTodo.vue';
 import axios from 'axios';
 
@@ -29,17 +29,17 @@ export default {
         .then((this.todos = this.todos.filter(todo => todo.id !== id)))
         .catch(err => console.log(err));
     },
-    addTodo(newTodo) {
+    addTodoApp(newTodo) {
       axios
         .post(`http://localhost:3000/todo`, newTodo)
         .then(res => (this.todos = [...this.todos, res.data]))
         .catch(err => console.log(err));
     },
-    updateTodo(id, updtTodo) {
-      console.log(id, updtTodo);
+    swapStatusTodoApp(updtTodo) {
+      updtTodo.completed = !updtTodo.completed;
       axios
         .patch(`http://localhost:3000/todo/${updtTodo.id}`, updtTodo)
-        .then(res => (this.todos = [...this.todos, res.data]))
+        .then()
         .catch(err => console.log(err));
     },
     loadData() {

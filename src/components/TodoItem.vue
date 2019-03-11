@@ -1,7 +1,11 @@
 <template>
   <div class="todo-item" v-bind:class="{'is-complete':todo.completed}">
     <p>
-      <input type="checkbox" v-on:change="markComplete" v-bind="{'checked':todo.completed}">
+      <input
+        type="checkbox"
+        @click="$emit('swapstatus-todo', todo)"
+        v-bind="{'checked':todo.completed}"
+      >
       {{todo.title}}
       <button class="del" @click="$emit('del-todo', todo.id)">X</button>
     </p>
@@ -11,19 +15,7 @@
 <script>
 export default {
   name: 'TodoItem',
-  props: ['todo'],
-  methods: {
-    markComplete() {
-      const updtTodo = {
-        id: this.id,
-        title: this.title,
-        completed: !this.todo.completed
-      };
-      // Send up to parent
-      this.$emit('update-todo', this.id, updtTodo);
-      //this.todo.completed = !this.todo.completed;
-    }
-  }
+  props: ['todo']
 };
 </script>
 
